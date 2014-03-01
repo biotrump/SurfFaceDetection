@@ -1,11 +1,12 @@
 #include "DebugConfig.h"
 #include "opencv2\core\core.hpp"
 #include "opencv2\highgui\highgui.hpp"
+#include "opencv2\imgproc\imgproc_c.h"
 #include <iostream>
 #include "SurfFaceDetection.h"
 #include <time.h>
 #include <fstream>
-#include <mat.h>
+//#include <mat.h>
 
 using namespace cv;
 using namespace std;
@@ -28,7 +29,7 @@ int main(int argc, char* argv[])
 	for(int i=0; i<5; i++)
 	{
 		char *file = new char[_MAX_PATH];
-		sprintf(file, "../model/stage%d.xml", i);
+		sprintf(file, "d:/repos/SURF/SurfFaceDetection/model/stage%d.xml", i);
 		stageFiles.push_back(file);
 	}
 
@@ -61,11 +62,14 @@ int main(int argc, char* argv[])
 	}
 
 #endif
-//#define IMG_TEST
+#define IMG_TEST
 #ifdef IMG_TEST
-	Mat img = imread("D:/microsoft/MyProject/FaceDectorPerfTest/DataSet/2003/02/02/big/img_367.jpg",0);
+	//Mat img = imread("D:/microsoft/MyProject/FaceDectorPerfTest/DataSet/2003/02/02/big/img_367.jpg",0);
 	//Mat img = imread("../data/test1.jpg",0);
-
+	Mat img;
+	if(argc>=2)
+		img = imread(argv[1], IMREAD_GRAYSCALE);
+	else exit(1);
 	//cout<<img;
 	namedWindow("tmpShow",1);
 	vector<Rect> faces;

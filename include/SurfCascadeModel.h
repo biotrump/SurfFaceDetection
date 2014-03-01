@@ -6,6 +6,8 @@
 #define _SURF_CASCADE_MODEL_H_
 
 #include <vector>
+//#include <opencv\cv.h>
+#include "opencv2\core\core_c.h"
 #include "DebugConfig.h"
 #include "opencv2\core\core.hpp"
 

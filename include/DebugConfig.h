@@ -7,9 +7,11 @@
 
 #include <assert.h>
 #include <iostream>
+#ifdef MY_DEBUG
 #include "engine.h"
+#endif
 #include "opencv2\highgui\highgui.hpp"
-#define MY_DEBUG
+//#define MY_DEBUG
 #ifdef MY_DEBUG
 extern engine *eg;
 #endif

@@ -4,7 +4,8 @@
 
 #ifndef _SURF_FEATURE_H_
 #define _SURF_FEATURE_H_
-
+//#include <opencv/cv.h>
+#include "opencv2\core\core_c.h"
 #include "opencv2\core\core.hpp"
 #include "DebugConfig.h"
 

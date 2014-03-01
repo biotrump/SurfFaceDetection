@@ -1,4 +1,5 @@
 #include "SurfFaceDetection.h"
+#include <opencv/cv.h>
 #include "opencv2\objdetect\objdetect.hpp"
 
 SurfFaceDetection::SurfFaceDetection()
@@ -177,6 +178,7 @@ bool SurfFaceDetection::DetectSingleScale(Size _winSize, float _scaleFactor,
 				_faceList.push_back(rect);
 			}
 #undef MY_DEBUG
+//#define MY_DEBUG
 #ifdef MY_DEBUG
 			Mat tmp;
 			cvtColor(imgOrg,tmp,CV_GRAY2RGB);

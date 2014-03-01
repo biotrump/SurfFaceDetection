@@ -12,7 +12,7 @@
 #include "Global.h"
 
 using namespace cv;
-
+using namespace std;
 class LogRegression
 {
 public:

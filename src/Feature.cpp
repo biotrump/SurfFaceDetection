@@ -1,6 +1,6 @@
 #include "Feature.h"
 #include "Global.h"
-
+using namespace std;
 SurfFeature::SurfFeature()
 {
 	feature = Rect();
