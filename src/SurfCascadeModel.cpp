@@ -65,6 +65,32 @@ double CascadeStage::Predict(const Mat &_sumImg, float _scale, double &_score)
 	return (_score < threshold)? 0:1;
 }
 
+bool CascadeStage::GetFeatureList(vector<Rect> &rectList)
+{
+	for(int i=0; i<weak.size(); i++)
+	{
+		Rect r = weak[i].GetFeature();
+		rectList.push_back(r);
+	}
+	return !!weak.size();
+}
+
+bool CascadeStage::getWeak(int idx, LogRegression &w)
+{
+	if(idx < weak.size())
+	{
+		w = weak[idx];
+		return true;
+	}
+	return false; 
+}
+
+int CascadeStage::getWeak(vector<LogRegression> &w)
+{
+	w = weak;
+	return weak.size();
+}
+
 bool SurfCascadeModel::LoadSurfCascadeModel(char *_fileName)
 {
 	FileStorage file(_fileName,FileStorage::READ);
@@ -132,3 +158,47 @@ int SurfCascadeModel::JudgeWindow(Mat &_sumImg, float _scale, double &_score)
 	}
 	return 1;
 }
+
+bool SurfCascadeModel::GetFeature(int idx, vector<Rect> &rectList )
+{
+	if(!rectList.empty())
+		return true;
+	if( (idx < stages.size()) && 
+		stages[idx].GetFeatureList(rectList) )
+		return true;
+	return false;
+}
+
+bool SurfCascadeModel::GetStage(int idx, CascadeStage &stage )
+{
+	if(stages.size() && (idx < stages.size()))
+	{
+		stage = stages[idx];
+		return true;
+	}
+	return false;
+}
+
+int SurfCascadeModel::GetStages(vector<CascadeStage>  &_stages)
+{
+	if(stages.size())
+	{
+		_stages = stages;
+	}
+	return stages.size();
+}
+/*
+int SurfCascadeModel::GetFeatureList(vector<vector<Rect> *> &list) 
+{
+	if(!list.empty())
+		return list.size();
+	for(int idx = 0; idx<stages.size(); idx++)
+	{
+		vector<Rect> r;
+		GetFeature(idx,r);
+		list.push_back(r);
+	}
+
+	return stages.size();
+}
+*/

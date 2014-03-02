@@ -34,8 +34,34 @@ int main(int argc, char* argv[])
 	}
 
 	SurfFaceDetection detection(stageFiles);
+	
+	//draw patch rect
+	int stx = detection.GetStageSize();
+	vector<Rect> surfRect;
+	//Mat sampleWin = Mat::zeros( MIN_WIND_HEIGHT, MIN_WIND_WIDTH, CV_8UC3 );
+	vector<Mat> sampleWin;
+	char winName[80];
+	Scalar patchColor[]={Scalar(255,0,0),Scalar(0,255,0),Scalar(0,0,255),Scalar(255,255,0),Scalar(0,255,255)};
+	for(int i=0; i < stx; i++){
+		sampleWin.push_back(Mat::zeros( MIN_WIND_HEIGHT, MIN_WIND_WIDTH, CV_8UC3 ));
+		cout << "stage:" << i << endl;
+		detection.GetFeature(i,surfRect);
+		for(int j=0; j < surfRect.size(); j ++){
+			cout << "x,y,w,h =" << surfRect[j].x << ",";
+			cout << surfRect[j].y << ",";
+			cout << surfRect[j].width << ",";
+			cout << surfRect[j].height << endl;
+			rectangle(sampleWin[i],surfRect[j],patchColor[i]);
+		}
+		surfRect.clear();
+		resize(sampleWin[i], sampleWin[i], Size(MIN_WIND_HEIGHT*4,MIN_WIND_WIDTH*4));
+		sprintf(winName,"PatchShow%d", i);
+		imshow(winName,sampleWin[i]);
+	}
+	sampleWin.clear();
 
-//#define VEDIO_TEST
+
+	//#define VEDIO_TEST
 #ifdef VEDIO_TEST	
 	VideoCapture cap(0);
 	if(!cap.isOpened())
@@ -71,9 +97,9 @@ int main(int argc, char* argv[])
 		img = imread(argv[1], IMREAD_GRAYSCALE);
 	else exit(1);
 	//cout<<img;
-	namedWindow("tmpShow",1);
+	//namedWindow("tmpShow",1);
 	vector<Rect> faces;
-	detection.DetectMultiScale(img,1.1,0.4,Size(40,40),faces);
+	detection.DetectMultiScale(img,1.1,0.1,Size(MIN_WIND_HEIGHT,MIN_WIND_WIDTH),faces);
 
 	//system("pause");
 	Mat colorImg;

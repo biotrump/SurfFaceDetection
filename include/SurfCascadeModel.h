@@ -24,7 +24,12 @@ public:
 
 	bool LoadStage(FileNode *node);
 	bool LoadStage(FileStorage *file);
-	
+
+	bool GetFeatureList(vector<Rect > &rectList);
+	inline float getThreshold(void) {return threshold;}
+	bool getWeak(int idx, LogRegression &w);
+	int getWeak(vector<LogRegression> &w);
+
 protected:
 	void Clear(){weak.clear();}
 	vector<LogRegression> weak;
@@ -40,11 +45,18 @@ public:	//API extern
 
 	int JudgeWindow(Mat &_sumImg, float _sacle, double &_score);
 
+	inline int stages_size(void) {return stages.size();}
+	bool GetStage(int idx, CascadeStage &stage );
+	int GetStages(vector<CascadeStage>  &_stages);
+	bool GetFeature(int idx, vector<Rect> &rectList );
+	//int GetFeatureList(vector<vector<Rect> *> &list);
+
 protected:
 	//API intern
 	void Clear(){ stages.clear(); }
 	//data
 	vector<CascadeStage>  stages;
+	//vector<vector<Rect> *> featureList;
 };
 
 #endif

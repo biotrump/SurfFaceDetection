@@ -193,3 +193,21 @@ bool SurfFaceDetection::DetectSingleScale(Size _winSize, float _scaleFactor,
 	}
 	return true;
 }
+
+/*
+bool SurfFaceDetection::GetFeatureList(int &idx, vector<Rect *> *list)
+{
+
+	if(	!featureList.empty())
+		featureList.clear();
+
+	idx = model.stages_size();
+	
+	for(int i=0; i < idx; i++){
+		vector<Rect *> *f = new vector<Rect *>;
+		if(model.GetFeature(i, f))
+			featureList.push_back(f);
+	}
+	return true;
+}
+*/

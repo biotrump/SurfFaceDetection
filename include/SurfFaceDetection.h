@@ -27,12 +27,20 @@ public:
 
 	bool DetectSingleScale(const Mat &_grayImg, float _sacle,
 		 float _stepFactor, Size _winSize, vector<Rect> &_faceList);
-
+	
+	inline int GetStageSize(void) { return model.stages_size();}
+	inline bool GetFeature(int idx, vector<Rect> &rectList ) {
+		return model.GetFeature(idx, rectList);
+	}
+	//bool GetFeatureList(int &idx);
+	//bool GetFeatureList(int &idx, vector<Rect *> *list);
 protected:
 	void Init();
 	bool CalculateSurfSumImg(const Mat &_grayImg);
 	bool DetectSingleScale(Size _winSize,float _scaleFactor, int _step,
 		 vector<Rect> &_faceList, vector<double> *_scoreList = NULL);
+
+	vector<vector<Rect *> *> featureList;
 
 	SurfCascadeModel model;
 	Ptr<FilterEngine> rowFilter;

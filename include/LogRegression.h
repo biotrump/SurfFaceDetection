@@ -24,8 +24,9 @@ public:
 	void SetWeight(Mat &_weight);
 	void SetFeature(SurfFeature &_feature);
 	void SetFeature(Rect &_feature);
-
 	bool LoadWeak(FileNode *node);
+	//inline SurfFeature GetFeature(void) {return feature;}
+	inline Rect GetFeature(void) {return feature.GetFeature();}
 protected:
 	Mat weight;
 	SurfFeature feature;
